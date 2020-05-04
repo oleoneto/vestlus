@@ -1,0 +1,11 @@
+admin
+fixtures
+forms
+middleware
+migrations
+models
+serializers
+templates
+templatetags
+views
+viewsets

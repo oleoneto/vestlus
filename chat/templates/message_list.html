@@ -1,0 +1,15 @@
+{% comment %}
+    Describe the template here.
+{% endcomment %}
+
+{% block body %}
+    <h1>Messages</h1>
+
+    <ul>
+    {% for object in object_list %}
+    <li>
+        <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+{% endblock body %}

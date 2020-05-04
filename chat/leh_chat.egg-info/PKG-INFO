@@ -1,0 +1,51 @@
+Metadata-Version: 1.1
+Name: leh-chat
+Version: 0.1
+Summary: A Django app for chat conversations.
+Home-page: https://www.github.com/lehvitus/chat
+Author: Leo Neto
+Author-email: leo@ekletik.com
+License: BSD-3-Clause
+Description: =============
+        Lehvitus Chat
+        =============
+        
+        `Lehvitus chat` is a django chat app with support for private and public channels.
+        
+        Quick start
+        -----------
+        
+        1. Add "leh_chat" to your INSTALLED_APPS setting like this::
+        
+            INSTALLED_APPS = [
+                ...
+                'leh_chat',
+            ]
+        
+        2. Include the polls URLconf in your project urls.py like this::
+        
+            path('chat/', include('leh_chat.urls')),
+        
+        3. Run ``python manage.py migrate`` to create the app models.
+        
+        4. Start the development server and visit http://127.0.0.1:8000/admin/
+           to start a new chat (you'll need the Admin app enabled).
+        
+        5. Visit http://127.0.0.1:8000/chat/ to use the app.
+Keywords: django chat messages
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 2.2
+Classifier: Framework :: Django :: 3.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
