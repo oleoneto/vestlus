@@ -1,0 +1,53 @@
+{% extends 'vestlus.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    .message-content {
+        font-size: 112%;
+    }
+
+    .info-time {
+        font-size: 90%;
+    }
+</style>
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="p-0 breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{% url 'vestlus:chat-index' %}">Chat</a>
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="{% url 'vestlus:channel-list' %}">Channels</a>
+            </li>
+            <li class="breadcrumb-item active">{{ channel.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <h1 class="title pb-4">
+            {{ channel.name }}
+
+            <sup class="text-small">
+                {% if channel.is_private %}
+                <i class="text-danger fa fa-lock" aria-label="This is a private channel"></i>
+                {% endif %}
+            </sup>
+        </h1>
+    </div>
+
+    <!-- Channel Delete -->
+    <form action="{% url 'vestlus:channel-delete' object.slug %}" method="POST">
+        {% csrf_token %}
+        <h5>
+            Are you sure you want to delete <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>?
+            {% if object.total_messages %}
+                <i>This will also delete all of its {{ object.total_messages }} messages.</i>
+            {% endif %}
+        </h5>
+        <button class="btn btn-danger" type="submit" value="yes">Delete</button>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-primary" type="submit" value="no">Cancel</a>
+    </form>
+</div>
+{% endblock %}

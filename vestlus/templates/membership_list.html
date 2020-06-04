@@ -1,0 +1,15 @@
+{% extends 'vestlus.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Memberships</h2>
+
+    <ul>
+        {% for object in object_list %}
+        <li>
+            <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

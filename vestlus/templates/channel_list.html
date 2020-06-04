@@ -1,0 +1,136 @@
+{% extends 'vestlus.html' %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="p-0 breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{% url 'vestlus:chat-index' %}">Chat</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Channels</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <h1 class="title pb-4">Channels</h1>
+        <a href="{% url 'vestlus:channel-create' %}">
+            <button class="btn btn-outline-primary" type="submit">
+                <i class="fa fa-edit"></i>
+                Create a channel
+            </button>
+        </a>
+    </div>
+
+    <div class="row">
+        {% for object in object_list %}
+        <div class="col-md-12 py-1 my-1">
+            <div class="card border-muted">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <div class="top d-flex flex-row justify-content-start">
+                            <img src="https://github.com/repaus.png"
+                                 alt=""
+                                 class="rounded-circle mr-2"
+                                 width="36px"
+                                 height="36px"
+                            />
+                            <h5 class="card-title">
+                                <a href="{{ object.get_absolute_url }}" class="inherit-color">
+                                    {{ object.name }}
+                                    {% if object.is_private %}
+                                    <sup><i class="fa fa-lock text-danger"></i></sup>
+                                    {% endif %}
+                                </a>
+                                <span class="d-block">
+                                    <small class="text-muted">
+                                        {% if object.owner == request.user %}
+                                        You created this channel
+                                        {% else %}
+                                        Joined {{ object.created_at|timesince }} ago
+                                        {% endif %}
+                                    </small>
+                                </span>
+                            </h5>
+                        </div>
+
+                        <div class="links">
+                            {% if object.owner == request.user %}
+                            <a href="{% url 'vestlus:channel-delete' object.slug %}">
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </a>
+                            {% endif %}
+
+                            <a href="{{ object.get_absolute_url }}">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Open Channels -->
+    {% if recommended_channels.count %}
+    <h5 class="mt-5 mb-2">Available to Join</h5>
+    <div class="row">
+        {% for object in recommended_channels|slice:4 %}
+        <div class="col-md-12 py-1 my-1">
+            <div class="card border-muted">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <div class="top d-flex flex-row justify-content-start">
+                            <img src="https://github.com/repaus.png"
+                                 alt=""
+                                 class="rounded-circle mr-2"
+                                 width="36px"
+                                 height="36px"
+                            />
+                            <h5 class="card-title">
+                                <a href="{{ object.get_absolute_url }}" class="inherit-color">
+                                    {{ object.name }}
+                                    {% if object.is_private %}
+                                    <sup><i class="fa fa-lock text-danger"></i></sup>
+                                    {% endif %}
+                                </a>
+                                <span class="d-block">
+                                    <small class="text-muted">
+                                        {% if object.owner == request.user %}
+                                        You created this channel
+                                        {% else %}
+                                        Joined {{ object.created_at|timesince }} ago
+                                        {% endif %}
+                                    </small>
+                                </span>
+                            </h5>
+                        </div>
+
+                        <div class="links">
+                            {% if object.owner == request.user %}
+                            <a href="{% url 'vestlus:channel-delete' object.slug %}">
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </a>
+                            {% endif %}
+
+                            <a href="{{ object.get_absolute_url }}">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

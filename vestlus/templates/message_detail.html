@@ -1,0 +1,55 @@
+{% extends 'vestlus.html' %}
+
+{% block content %}
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="p-0 breadcrumb bg-light">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'vestlus:chat-index' %}">Chat</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{% url 'vestlus:message-list' %}">Messages</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ object }}</li>
+            </ol>
+        </nav>
+
+        <div class="message">
+            <div class="col-md-12 mb-1">
+        <div class="media pt-3">
+            <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="40x40"
+                 class="mr-0 rounded"
+                 src="https://github.com/repaus.png"
+                 data-holder-rendered="true" style="width: 40px; height: 40px;"
+            >
+            <div class="media-body pl-3 pb-2 mb-0 small lh-125 border-gray">
+                <span class="d-block text-muted">
+                    <a href="{{ message.sender.get_absolute_url }}" class="inherit-color">
+                        <strong>{{ message.sender.first_name }} {{ message.sender.last_name }}</strong>
+                    </a>
+                    <span class="text-small info-time">{{ message.created_at|timesince }} ago</span>
+                    {% if message.channel %}
+                    <span class="text-small">in
+                        <a href="{{ message.channel.get_absolute_url }}">
+                            {{ message.channel.name }}
+                        </a>
+                    </span>
+                    {% endif %}
+                </span>
+                <div class="message-content d-flex justify-content-between align-items-center w-100">
+                    {{ message.content }}
+                </div>
+
+                <div class="reaction mt-2">
+                {% for reaction in message.reactions.all %}
+                    <span class="border rounded p-1 m-1">
+                        <small>{{ reaction.reaction }}</small>
+                    </span>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+{% endblock content %}

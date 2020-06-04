@@ -1,0 +1,29 @@
+<div class="card border-muted">
+    <div class="card-body">
+        <div class="card-text">
+            {{ object.preview }}
+            <p>
+                <small class="text-muted">
+                    Sent by
+                    <span class="font-weight-bold">
+                    <a href="{{ object.sender.get_absolute_url }}">
+                        {{ object.sender.first_name }}
+                    </a>
+                    </span>
+                    {% if object.channel %}
+                    in
+                    <span class="font-weight-bold">
+                        <a href="{{ object.channel.get_absolute_url }}">{{ object.channel.name }}</a>
+                    </span>
+                    {% endif %}
+                    {{ object.created_at|timesince }} ago
+                </small>
+            </p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <small class="text-small">
+            Result found in <a href="{% url 'vestlus:message-list' %}">Messages</a>
+        </small>
+    </div>
+</div>

@@ -1,0 +1,183 @@
+{% extends 'vestlus.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% block content %}
+<style>
+    .message-content {
+        font-size: 112%;
+    }
+
+    .info-time {
+        font-size: 90%;
+    }
+</style>
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="p-0 breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{% url 'vestlus:chat-index' %}">Chat</a>
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="{% url 'vestlus:channel-list' %}">Channels</a>
+            </li>
+            <li class="breadcrumb-item active">{{ channel.slug }}</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <h1 class="title pb-4">
+            {{ channel.name }}
+            <sup class="text-small">
+                {% if channel.is_private %}
+                <i class="text-danger fa fa-lock" aria-label="This is a private channel"></i>
+                {% endif %}
+            </sup>
+        </h1>
+
+        <!-- Actions -->
+        <div class="actions">
+            <a class="btn btn-primary" data-toggle="modal" href="#editorModal">New message</a>
+            {% if object.owner == request.user %}
+            <a href="{% url 'vestlus:channel-delete' object.slug %}">
+                <button class="btn btn-danger" type="submit">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if user_in_admins %}
+    <div class="mt-5 m-auto text-muted">
+        <small>
+            {% if channel.owner == request.user %}
+            You own this channel.
+            {% else %}
+            You are an admin of this channel.
+            {% endif %}
+        </small>
+    </div>
+    {% endif %}
+
+    <!-- Channel Members -->
+    <div class="members">
+        {% if user_in_admins %}
+        <p>
+            <a href="{% url 'vestlus:membership-create' channel.slug %}" class="">
+                <small>Invite member <i class="fa fa-plus"></i></small>
+            </a>
+        </p>
+        {% endif %}
+
+        <div class="row pb-4">
+            {% for membership in channel.members.all %}
+            <div class="col-md-3 py-1">
+                <div class="card border-muted">
+                    <div class="card-body">
+                        <div class="top d-flex flex-row justify-content-start">
+                            <img src="https://github.com/repaus.png"
+                                 alt=""
+                                 class="rounded-circle mr-2"
+                                 width="36px"
+                            />
+                            <h5 class="card-title">
+                                <a href="{{ membership.user.get_absolute_url }}">
+                                    {{ membership.user.first_name }} {{ membership.user.last_name }}
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="card-text">
+                            <p class="info-time">
+                                <small class="text-muted">
+                                    Joined {{ membership.created_at|timesince }} ago
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+    </div>
+
+    <!-- Channel Messages -->
+    <div class="messages">
+        {% if not channel.conversations.count %}
+        <h4 class="p-5 text-muted text-center">No messages yet</h4>
+        {% else %}
+        {% for message in channel.conversations.all %}
+        <div class="col-md-12 mb-1">
+            <div class="media pt-3">
+                <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="40x40"
+                     class="mr-0 rounded"
+                     src="https://github.com/repaus.png"
+                     data-holder-rendered="true" style="width: 40px; height: 40px;"
+                >
+                <div class="media-body pl-3 pb-2 mb-0 small lh-125 border-gray">
+                    <div class="d-block text-muted">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <div class="sender-and-time">
+                                <a href="{{ message.sender.get_absolute_url }}">
+                                    <strong>{{ message.sender.first_name }} {{ message.sender.last_name }}</strong>
+                                </a>
+                                <span class="text-small info-time">{{ message.created_at|timesince }} ago</span>
+                            </div>
+                            {% if message.sender == request.user %}
+                            <span>
+                                <a href="{% url 'vestlus:channel-message-delete' channel=channel.slug slug=message.slug %}">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="message-content d-flex justify-content-between align-items-center w-100">
+                        {{ message.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Compose Message -->
+    <div class="modal fade" id="editorModal" tabindex="-1" role="dialog"
+         aria-labelledby="modalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLongTitle">Compose a new message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{% url 'vestlus:channel-detail' channel.slug %}">
+                    <div class="modal-body" id="editor-container">
+                        {% csrf_token %}
+                        <div class="mb-2" id="editor" aria-required="true">
+                            {# form|crispy #}
+                            {# form.content|as_crispy_field #}
+                            {% crispy_field form.content %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.is_private }}
+{{ object.created_at }}
+{{ object.updated_at }}

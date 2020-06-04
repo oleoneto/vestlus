@@ -1,0 +1,26 @@
+<div class="card border-muted">
+    <div class="card-body">
+        <div class="top d-flex flex-row justify-content-start">
+            <img src="{{ object.avatar }}"
+                 alt=""
+                 class="rounded-circle mr-2"
+                 width="35px"
+            />
+            <h5 class="card-title">
+                <a href="{{ object.channel.get_absolute_url }}">{{ object.name }}</a>
+            </h5>
+        </div>
+        <div class="card-text">
+            <p>
+                <small class="text-muted">
+                    Created {{ object.created_at|timesince }} ago
+                </small>
+            </p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <small class="text-small">
+            Result found in <a href="{% url 'vestlus:channel-list' %}">Channels</a>
+        </small>
+    </div>
+</div>

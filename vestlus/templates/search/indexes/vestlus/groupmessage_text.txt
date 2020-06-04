@@ -1,0 +1,3 @@
+{{ object.sender }}
+{{ object.channel }}
+{{ object.content }}

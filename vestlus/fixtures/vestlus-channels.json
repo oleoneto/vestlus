@@ -1,0 +1,41 @@
+[
+  {
+    "model": "vestlus.channel",
+    "fields": {
+      "id": 20,
+      "name": "The Friends of Friends",
+      "owner": 1,
+      "access_code": "5ce47ca2-25f8-4bbb-9e7c-34c015eca229",
+      "slug": "the-friends-of-friends-34c015eca229",
+      "is_private": true,
+      "created_at": "2020-02-01T18:34:16Z",
+      "updated_at": "2019-02-18T14:23:30Z"
+    }
+  },
+  {
+    "model": "vestlus.channel",
+    "fields": {
+      "id": 21,
+      "name": "Vestibular Occupations",
+      "owner": 2,
+      "access_code": "09fca386-f285-4621-a47a-831b3df0f098",
+      "slug": "vestibular-occupations-831b3df0f098",
+      "is_private": false,
+      "created_at": "2020-02-23T13:42:56Z",
+      "updated_at": "2019-11-10T14:35:13Z"
+    }
+  },
+  {
+    "model": "vestlus.channel",
+    "fields": {
+      "id": 22,
+      "name": "Book Club",
+      "owner": 1,
+      "access_code": "f301791d-d8c2-40ba-b1bd-09a37dab167f",
+      "slug": "book-club-occupations-09a37dab167f",
+      "is_private": false,
+      "created_at": "2020-02-23T13:42:56Z",
+      "updated_at": "2019-11-10T14:35:13Z"
+    }
+  }
+]

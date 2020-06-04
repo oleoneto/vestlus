@@ -1,0 +1,105 @@
+{% extends 'vestlus.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title mb-5">
+        Vestlus Chat
+        <hr>
+    </h1>
+
+    <!-- Channels -->
+    <div class="channels">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h3 class="title mb-3">Channels</h3>
+            <span>
+                <a href="{% url 'vestlus:channel-list' %}" class="">
+                    <small>View channels</small>
+                </a>
+            </span>
+        </div>
+
+        <div class="row pb-4">
+            {% for channel in channels|slice:6 %}
+            <div class="col-md-4 py-1 my-2">
+                <div class="card border-muted">
+                    <div class="card-body">
+                        <div class="top d-flex flex-row justify-content-start">
+                            <img src="https://github.com/repaus.png"
+                                 alt=""
+                                 class="rounded-circle mr-2"
+                                 width="36px"
+                                 height="36px"
+                            />
+                            <h5 class="card-title">
+                                <a href="{{ channel.get_absolute_url }}" class="inherit-color">
+                                    {{ channel.name }}
+                                    {% if channel.is_private %}
+                                    <sup><i class="fa fa-lock text-danger"></i></sup>
+                                    {% endif %}
+                                </a>
+                                <span class="d-block">
+                                    <small class="text-muted">
+                                        {% if channel.owner == request.user %}
+                                        You created this channel
+                                        {% else %}
+                                        Joined {{ channel.created_at|timesince }} ago
+                                        {% endif %}
+                                    </small>
+                                </span>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+
+    <!-- Channel Messages -->
+    <div class="messages">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h3 class="title mb-3">Recent messages</h3>
+            <span>
+                <a href="{% url 'vestlus:message-list' %}" class="">
+                    <small>View messages</small>
+                </a>
+            </span>
+        </div>
+
+        {% if not messages.count %}
+        <h4 class="p-5 text-muted text-center">No messages yet</h4>
+        {% else %}
+        {% for message in messages|slice:3 %}
+        <div class="col-md-12 mb-1">
+            <div class="media pt-3">
+                <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="40x40"
+                     class="mr-0 rounded"
+                     src="https://github.com/repaus.png"
+                     data-holder-rendered="true" style="width: 40px; height: 40px;"
+                >
+                <div class="media-body pl-3 pb-2 mb-0 small lh-125 border-gray">
+                    <span class="d-block text-muted">
+                        <a href="{{ message.sender.get_absolute_url }}" class="inherit-color">
+                            <strong>{{ message.sender.first_name }} {{ message.sender.last_name }}</strong>
+                        </a>
+                        <span class="text-small info-time">{{ message.created_at|timesince }} ago</span>
+                        {% if message.channel %}
+                        <span class="text-small">in
+                            <a href="{{ message.channel.get_absolute_url }}">
+                                {{ message.channel.name }}
+                            </a>
+                        </span>
+                        {% endif %}
+                    </span>
+                    <div class="message-content d-flex justify-content-between align-items-center w-100">
+                        {{ message.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

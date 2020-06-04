@@ -1,0 +1,38 @@
+{% extends 'vestlus.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="p-0 breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{% url 'vestlus:chat-index' %}">Chat</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="{% url 'vestlus:channel-list' %}">Channels</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="{% url 'vestlus:channel-detail' channel.slug %}">{{ channel.name }}</a>
+            </li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <h1 class="title pb-4">Create Message</h1>
+    </div>
+
+    <!-- Channel form -->
+    <form class="pb-4" action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {{ form|crispy }}
+            <input type="hidden" value="{{ channel.id }}" name="channel">
+            <input type="hidden" value="{{ request.user }}" name="sender">
+        </fieldset>
+        <button class="btn btn-outline-primary" type="submit">Save message</button>
+    </form>
+
+    <!--/-->
+    <hr>
+</div>
+{% endblock %}
