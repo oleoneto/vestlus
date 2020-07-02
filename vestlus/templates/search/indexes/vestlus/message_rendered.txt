@@ -23,7 +23,7 @@
     </div>
     <div class="card-footer">
         <small class="text-small">
-            Result found in <a href="{% url 'vestlus:message-list' %}">Messages</a>
+            <a href="{{ object.get_absolute_url }}">View this message</a>
         </small>
     </div>
 </div>

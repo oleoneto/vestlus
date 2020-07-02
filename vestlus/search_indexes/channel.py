@@ -11,7 +11,8 @@ class ChannelIndex(indexes.SearchIndex, indexes.Indexable):
     creation_date = indexes.DateTimeField(model_attr='created_at')
     update_date = indexes.DateTimeField(model_attr='updated_at')
     messages = indexes.MultiValueField()
-    rendered = indexes.CharField(use_template=True, indexed=False)
+    content_auto = indexes.EdgeNgramField(model_attr='name')  # autocomplete
+    rendered = indexes.CharField(use_template=True, indexed=False)  # html renderer
 
     def get_model(self):
         return Channel

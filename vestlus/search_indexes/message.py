@@ -4,6 +4,7 @@ from haystack import indexes
 
 
 class MessageIndex(indexes.BasicSearchIndex, indexes.Indexable):
+    content_auto = indexes.EdgeNgramField(model_attr='content')
     rendered = indexes.CharField(
         use_template=True,
         indexed=False,
