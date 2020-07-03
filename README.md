@@ -2,11 +2,11 @@
 
 **vestlus** is a django chat app with support for private and public channels.
 
-![PyPI - License](https://img.shields.io/pypi/l/vestlus)
-![PyPI - Version](https://img.shields.io/pypi/v/vestlus)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/vestlus)
-![Github - Issues](https://img.shields.io/github/issues/lehvitus/vestlus)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/vestlus)
+![PyPI - License](https://img.shields.io/pypi/l/django-vestlus)
+![PyPI - Version](https://img.shields.io/pypi/v/django-vestlus)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-vestlus)
+![Github - Issues](https://img.shields.io/github/issues/lehvitus/django-vestlus)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/django-vestlus)
 
 #### Dependencies
 Use of **vestlus** requires:
