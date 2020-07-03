@@ -4,5 +4,10 @@
 """
 from __future__ import unicode_literals
 
+__version__ = "0.1.0"
+__license__ = 'BSD 3-Clause'
+__copyright__ = 'Copyright 2020 Lehvitus ÖU'
 
-# default_app_config = 'vestlus.apps.ChatConfig'
+VERSION = __version__
+
+default_app_config = 'vestlus.apps.VestlusConfig'

@@ -94,7 +94,7 @@ Alternatively, you can also add this app like so::
 ```
 
 ## License
-**vestlus** is [BSD-Licensed](LICENSE).
+**vestlus** is [BSD-Licensed](LICENSE.md).
 
 ------
 
