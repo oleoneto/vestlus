@@ -5,8 +5,8 @@
 ![PyPI - License](https://img.shields.io/pypi/l/django-vestlus)
 ![PyPI - Version](https://img.shields.io/pypi/v/django-vestlus)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-vestlus)
-![Github - Issues](https://img.shields.io/github/issues/lehvitus/django-vestlus)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/django-vestlus)
+![Github - Issues](https://img.shields.io/github/issues/lehvitus/vestlus)
 
 #### Dependencies
 Use of **vestlus** requires:
