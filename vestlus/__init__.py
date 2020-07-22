@@ -1,10 +1,11 @@
 # coding: utf-8
 """
-    vestlus is a django vestlus app with support for private and public channels.
+    vestlus is a django app with support for private and public channels.
 """
 from __future__ import unicode_literals
+from .requires import REQUIRED_APPS
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __license__ = 'BSD 3-Clause'
 __copyright__ = 'Copyright 2020 Lehvitus ÖU'
 
