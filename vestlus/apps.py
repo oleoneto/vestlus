@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class VestlusConfig(AppConfig):
     name = 'vestlus'
-    verbose_name = _("Chat")
+    verbose_name = _('Vestlus Chat')
 
     def ready(self):
         from .models import signals
