@@ -1,4 +1,5 @@
 # vestlus:settings
+import os
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
