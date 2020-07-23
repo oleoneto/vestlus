@@ -18,6 +18,7 @@ def get_version(package):
 version = get_version('vestlus')
 
 setup(
+    version=version,
     name='django-vestlus',
     url='https://www.github.com/lehvitus/vestlus',
     author='Leo Neto',
