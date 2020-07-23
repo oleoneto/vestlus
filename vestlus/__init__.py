@@ -5,7 +5,7 @@
 from __future__ import unicode_literals
 from .requires import REQUIRED_APPS
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __license__ = 'BSD 3-Clause'
 __copyright__ = 'Copyright 2020 Lehvitus ÖU'
 
